@@ -43,16 +43,13 @@ const connectButton = document.getElementById('connect-button');
 // CONNECT & CHARACTER SETUP
 connectButton.onclick = async () => {
   if (peerConnection && peerConnection.connectionState === 'connected') {return;}
+  stopAllStreams();  closePC();
 
-  stopAllStreams();
-  closePC();
-
-
+  // RESPONSE
   const sessionResponse = await fetch(`${DID_API.url}/talks/streams`, {
     method: 'POST',
     headers: {'Authorization': `Basic ${DID_API.key}`, 'Content-Type': 'application/json'},
     body: JSON.stringify({
-      //source_url: "https://d-id-public-bucket.s3.amazonaws.com/or-roman.jpg"
       source_url: "https://chat-gpt-web.herokuapp.com/eliza.png"
     }),
   });
@@ -92,8 +89,10 @@ talkButton.onclick = async () => {
         headers: { Authorization: `Basic ${DID_API.key}`, 'Content-Type': 'application/json' },
         body: JSON.stringify({
           'script': {
-            'type': 'audio',
-            'audio_url': 'https://d-id-public-bucket.s3.us-west-2.amazonaws.com/webrtc.mp3',
+            "script": {
+              "type": "text",
+              "input": "Hello world!"
+          }
           },
           'driver_url': 'bank://lively/',
           'config': {
@@ -101,7 +100,8 @@ talkButton.onclick = async () => {
           },
           'session_id': sessionId
         })
-      });
+      }
+      );
   }};
 
 
