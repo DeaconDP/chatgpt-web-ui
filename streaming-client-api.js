@@ -32,7 +32,7 @@ connectButton.onclick = async () => {
     method: 'POST',
     headers: {'Authorization': `Basic ${DID_API.key}`, 'Content-Type': 'application/json'},
     body: JSON.stringify({
-      source_url: "https://elizabot.weebly.com/uploads/3/7/1/9/37190465/deac-eliza-the-friendly-mixed-race-professional-therapist-in-he-259d7a5a-b178-409d-a1e6-de380ef20b5f_orig.png"
+      source_url: "https://chat-gpt-web.herokuapp.com/eliza.png"
     }),
   });
 
@@ -69,17 +69,17 @@ talkButton.onclick = async () => {
         method: 'POST',
         headers: { Authorization: `Basic ${DID_API.key}`, 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          'script': {
-            'type': 'text',
-            'input':'Hello world'
+          script: {
+            type: 'text',
+            provider: {type: 'microsoft', voice_id: 'Jenny'},
+            ssml: 'false',
+            input: 'test'
           },
-
-          'driver_url': 'bank://lively/',
-          'config': {
-            'stitch': true,
-          },
-          'session_id': sessionId
+          config: {fluent: 'false', pad_audio: '0.0'},
+          source_url: 'https://chat-gpt-web.herokuapp.com/eliza.png',
+          session_id: sessionId
         })
+
       });
   }};
 
