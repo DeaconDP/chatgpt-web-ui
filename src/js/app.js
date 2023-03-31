@@ -2,30 +2,28 @@ import { chatCompletionStream, getModels } from './api'
 import {
     parseHashParams,
     isScrolledToBottom,
-    updateTextareaSize
+    updateTextareaSize,
+    setupPersistentInputs
 } from './utils'
 import { markdownToDocumentFragment } from './markdown'
 import html2canvas from 'html2canvas'
 
 const setupAPIKeyInput = () => {
+    window.addEventListener('storage', event => {
+        if (event.key === 'api-key') {
+            updateApiKeyStatus()
+        }
+    })
+
+    // storage event is fired only when other tabs change the storage
     const apiKeyElements = document.querySelectorAll('.api-key-input')
-    const savedAPIKey = localStorage.getItem('api-key') || ''
-    console.log('savedapikey:', savedAPIKey)
-
     for (const apiKeyElement of apiKeyElements) {
-        apiKeyElement.value = savedAPIKey
-
         apiKeyElement.addEventListener('input', () => {
-            const key = apiKeyElement.value
-            console.log('saving:', key)
-            localStorage.setItem('api-key', key)
-            for (const otherApiKeyElement of apiKeyElements) {
-                otherApiKeyElement.value = key
-            }
             updateApiKeyStatus()
         })
     }
 
+    const savedAPIKey = localStorage.getItem('api-key')
     const introView = document.querySelector('#intro-view')
     if (!savedAPIKey) {
         introView.classList.remove('hidden')
@@ -84,6 +82,13 @@ const setupSettingsHandlers = () => {
     document.querySelector('#settings-button').addEventListener('click', () => {
         settingsView.classList.remove('hidden')
         clearApiKeyStatus()
+
+        // textarea height is incorrectly calculated when it's hidden from the viewport
+        // calculate it again
+        // this logic should be generalized but works for now like this
+        for (const textarea of document.querySelectorAll('textarea')) {
+            updateTextareaSize(textarea)
+        }
     })
 
     document.querySelector('#settings-exit-button').addEventListener('click', () => {
@@ -255,13 +260,14 @@ const removeErrorMessages = () => {
 }
 
 window.addEventListener('load', () => {
+    setupPersistentInputs()
     setupAPIKeyInput()
     setupSettingsHandlers()
 
     let messages = [
         {
             'role': 'system',
-            'content': 'Response format is ALWAYS markdown, especially for code.'
+            'content': localStorage.getItem('initial-system-message')
         }
     ]
 
@@ -293,8 +299,14 @@ window.addEventListener('load', () => {
         let newMessage = {}
         let newMessageBubble = null
 
+        // +1 because always include the new message
+        const maxMessages = parseInt(localStorage.getItem('maximum-messages')) + 1
+        const systemMessage = messages[0]
+        // .slice(1) so the systemMessage doesn't appear twice
+        const truncatedMessages = [systemMessage, ...messages.slice(1).slice(-maxMessages)]
+
         chatCompletionStream(apiKey, {
-            messages,
+            messages: truncatedMessages,
             model
         },
         (response) => {
@@ -360,11 +372,12 @@ window.addEventListener('load', () => {
         submitMessageForm()
     })
 
-    textbox.addEventListener('input', () => {
-        updateTextareaSize(textbox)
-    })
-    updateTextareaSize(textbox)
-
+    for (const textarea of document.querySelectorAll('textarea')) {
+        textarea.addEventListener('input', () => {
+            updateTextareaSize(textarea)
+        })
+        updateTextareaSize(textarea)
+    }
 
     document.addEventListener('keydown', event => {
         if (event.ctrlKey && event.key.toLowerCase() === 'm') {

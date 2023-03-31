@@ -91,12 +91,26 @@ body {
     padding-top: 0.7em;
     z-index: 2;
     background-color: var(--compose-box-bg);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px); /* Needed for Safari in 2023 */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px); /* Needed for Safari in 2023 */
 }
 
 #settings-view h1 {
     margin-top: 0.3em;
+}
+
+#settings-view h2 {
+    font-weight: 400;
+    font-size: 1.3em;
+    margin: 1em 0 0.6em 0;
+}
+
+#settings-view input, #settings-view .textarea-border-radius {
+    margin: 0.2em 0;
+}
+
+#system-message {
+    max-height: 20vh;
 }
 
 .assistant-icon-container {
@@ -144,10 +158,12 @@ body {
 
 #prompt {
     font-size: 1.1em;
-    padding: 0.3em 0.7em;
-    flex: 1;
     margin: 0;
     max-height: 70vh;
+}
+
+#submit {
+    margin: 0;
 }
 
 #prompt-container {
@@ -213,6 +229,13 @@ input {
 
 .copied-indicator {
     font-size: 0.8em;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid var(--input-border);
+    background: none;
+    margin: 1.4em 0;
 }
 
 p {
@@ -311,7 +334,7 @@ a:hover {
 }
 
 .disclaimer {
-    font-size: 0.7em;
+    font-size: 0.75em;
     line-height: 130%;
     margin: 0.35em 0;
 }
@@ -322,7 +345,7 @@ footer {
     opacity: 70%;
 }
 
-input[type=text], textarea {
+input[type=text], input[type=number], textarea {
     font-family: -apple-system, sans-serif;
     line-height: 120%;
     background-color: var(--bg);
@@ -342,15 +365,22 @@ input[type=text], textarea {
 .textarea-border-radius > textarea {
     margin: -1px !important;
     border: none;
+    flex: 1;
 }
 
-input[type=text]:focus, textarea:focus {
+input[type=number] {
+    width: 5em;
+}
+
+input[type=text]:focus, input[type=number]:focus, textarea:focus {
     outline: none;
 }
 
 textarea {
     resize: none;
     height: auto;
+    padding: 0.3em 0.7em;
+    font-size: 1em;
 }
 
 button {
@@ -358,9 +388,9 @@ button {
     color: var(--my-message-fg);
     border: none;
     padding: 0.4em 0.8em;
-    border-radius: 19px;
+    border-radius: 1em;
     font-size: 1em;
-    margin: 0.2em 0px;
+    margin: 0.2em 0;
     font-weight: 500;
 }
 
