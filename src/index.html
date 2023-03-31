@@ -26,12 +26,15 @@
             </symbol>
         </svg>
 
+
+
         <div id="intro-view" class="full-window-overlay hidden">
             <div class="assistant-icon-container">
                 <img src="/icon.png" class="assistant-icon">
             </div>
-            <h1>Welcome to Assistant</h1>
-            The power of <strong>ChatGPT</strong> in a better package:
+
+            <h1>Welcome to Assistant</h1>The power of <strong>ChatGPT</strong> in a better package:
+
             <ul>
                 <li>No logouts, ever.</li>
                 <li><a href="https://openai.com/pricing#language-models" target="_blank">Usage-based pricing</a>. For GPT-3.5, this means about 750 pages of text per dollar.</li>
@@ -41,12 +44,14 @@
                     <li>Desktop: Install as a Chrome app</li>
                 </ul>
             </ul>
+
             <div class="start-view">
                 Start by <a href="https://platform.openai.com/account/api-keys" target="_blank">getting an API key</a> from OpenAI.
                 <div class="disclaimer">
                     OpenAI documentation says "Do not share your API key with others, or expose it in the browser or other client-side code." This means that if you are <strong>building</strong> a web app, you should not leak the service's API key to your users. Assistant stores the API key in your browser's localStorage and only sends it directly to OpenAI's API.
                 </div>
             </div>
+
             OpenAI API key:
             <input type="text" class="api-key-input" id="intro-api-key-input" data-persistent-name="api-key" placeholder="sk-xxxx">
             <br>
@@ -54,6 +59,8 @@
             <br>
             <button id="intro-continue" class="secondary">Continue</button>
         </div>
+
+
 
         <div id="settings-view" class="full-window-overlay hidden">
             <button id="settings-exit-button" class="reset-button">
