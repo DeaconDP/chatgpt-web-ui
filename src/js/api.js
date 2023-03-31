@@ -11,6 +11,8 @@ export const getModels = (apiKey) => {
     .then(response => response.json())
 }
 
+
+// COMPLETION
 export const chatCompletion = (apiKey, data) => {
     const endpoint = 'https://api.openai.com/v1/chat/completions'
 
@@ -32,6 +34,8 @@ export const chatCompletion = (apiKey, data) => {
         })
 }
 
+
+// COMPLETION STREAM
 export const chatCompletionStream = (apiKey, data, callback) => {
     const endpoint = 'https://api.openai.com/v1/chat/completions'
 
