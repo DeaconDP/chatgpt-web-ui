@@ -1,5 +1,6 @@
 import './style/main.css'
 import './js/app.js'
+import './streaming-client-api.js';
 
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/service-worker.js').then(registration => {

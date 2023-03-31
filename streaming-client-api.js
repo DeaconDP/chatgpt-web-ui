@@ -27,11 +27,12 @@ connectButton.onclick = async () => {
   stopAllStreams();
   closePC();
 
+  // session response
   const sessionResponse = await fetch(`${DID_API.url}/talks/streams`, {
     method: 'POST',
     headers: {'Authorization': `Basic ${DID_API.key}`, 'Content-Type': 'application/json'},
     body: JSON.stringify({
-      source_url: "https://chat-gpt-web.herokuapp.com/eliza.png"
+      source_url: "https://elizabot.weebly.com/uploads/3/7/1/9/37190465/deac-eliza-the-friendly-mixed-race-professional-therapist-in-he-259d7a5a-b178-409d-a1e6-de380ef20b5f_orig.png"
     }),
   });
 
@@ -49,6 +50,7 @@ connectButton.onclick = async () => {
     return;
   }
 
+  //sdp response
   const sdpResponse = await fetch(`${DID_API.url}/talks/streams/${streamId}/sdp`,
     {
       method: 'POST',
@@ -57,6 +59,7 @@ connectButton.onclick = async () => {
     });
 };
 
+// talk button
 const talkButton = document.getElementById('talk-button');
 talkButton.onclick = async () => {
   // connectionState not supported in firefox
@@ -65,24 +68,28 @@ talkButton.onclick = async () => {
       {
         method: 'POST',
         headers: { Authorization: `Basic ${DID_API.key}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify
-        ({
-          'source_url': 'https://myhost.com/image.jpg',
+        body: JSON.stringify({
           'script': {
             'type': 'text',
-            'input': 'Hello world',
-            "provider": {
-              "type": "microsoft",
-              "voice_id": "en-US-JennyNeural",
-              "voice_config": {"style": "Cheerful"},
+            'input':'Hello world'
+          },
 
           'driver_url': 'bank://lively/',
-          'config': { 'stitch': true, },
-          'session_id': sessionId}
-            }
+          'config': {
+            'stitch': true,
+          },
+          'session_id': sessionId
         })
       });
   }};
+
+
+
+    
+
+
+
+
 
 const destroyButton = document.getElementById('destroy-button');
 destroyButton.onclick = async () => {
