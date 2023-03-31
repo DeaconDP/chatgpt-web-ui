@@ -18,8 +18,8 @@ if ('serviceWorker' in navigator) {
 
 'use strict';
 
-import DID_API from '~/api.json' assert { type: 'json' };
-if (DID_API.key == '🤫') alert('Please put your api key inside ~/api.json and restart..')
+import DID_API from '/api.json' assert { type: 'json' };
+if (DID_API.key == '🤫') alert('Please put your api key inside /api.json and restart..')
 
 const RTCPeerConnection = (window.RTCPeerConnection || window.webkitRTCPeerConnection || window.mozRTCPeerConnection).bind(window);
 
