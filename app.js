@@ -13,3 +13,10 @@ app.get("/", function (req, res) {
 // start the server listening for requests
 app.listen(process.env.PORT || 3000, 
 	() => console.log("Server is running..."));
+
+
+// stream
+const http = require('http');
+app.use('/', express.static(__dirname));
+const server = http.createServer(app);
+server.listen(3000, () => console.log('Server started on port localhost:3000'));
