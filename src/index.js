@@ -53,7 +53,7 @@ connectButton.onclick = async () => {
     headers: {'Authorization': `Basic ${DID_API.key}`, 'Content-Type': 'application/json'},
     body: JSON.stringify({
       //source_url: "https://d-id-public-bucket.s3.amazonaws.com/or-roman.jpg"
-      source_url: "https://chat-gpt-web.herokuapp.com/eliza.png"
+      source_url: "https://raw.githubusercontent.com/DeaconDP/chatgpt-web-ui/main/eliza.png"
     }),
   });
 
