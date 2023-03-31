@@ -15,17 +15,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/felixbade/open-ai-web-ui.git"
+    "url": "git+https://github.com/DeaconDP/chatgpt-web-ui"
   },
   "keywords": [
     "chatgpt"
   ],
-  "author": "Felix Bade",
+  "author": "Felix Bade & Deaconline",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/felixbade/open-ai-web-ui/issues"
+    "url": ""
   },
-  "homepage": "https://github.com/felixbade/open-ai-web-ui#readme",
+
   "devDependencies": {
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^11.0.0",
