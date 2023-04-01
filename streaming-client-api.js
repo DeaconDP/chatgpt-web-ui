@@ -27,12 +27,11 @@ connectButton.onclick = async () => {
   stopAllStreams();
   closePC();
 
-  // session response
   const sessionResponse = await fetch(`${DID_API.url}/talks/streams`, {
     method: 'POST',
     headers: {'Authorization': `Basic ${DID_API.key}`, 'Content-Type': 'application/json'},
     body: JSON.stringify({
-      source_url: "https://chat-gpt-web.herokuapp.com/eliza.png"
+      source_url: "https://d-id-public-bucket.s3.amazonaws.com/or-roman.jpg"
     }),
   });
 
@@ -50,7 +49,6 @@ connectButton.onclick = async () => {
     return;
   }
 
-  //sdp response
   const sdpResponse = await fetch(`${DID_API.url}/talks/streams/${streamId}/sdp`,
     {
       method: 'POST',
@@ -59,60 +57,27 @@ connectButton.onclick = async () => {
     });
 };
 
-// get talk button
 const talkButton = document.getElementById('talk-button');
-// onclick
 talkButton.onclick = async () => {
   // connectionState not supported in firefox
   if (peerConnection?.signalingState === 'stable' || peerConnection?.iceConnectionState === 'connected') {
-    
-
-    const talkResponse = require('api')('@d-id/v4.2.0#7xvueytb1glfl1ij2g');
-
-    sdk.auth('Basic WkVCMFpXRnRaWEJwWXk1dmNtYzpYSkJWZE5iRnEwbjFmWmlmTHNrU2o=');
-    sdk.create({
-      script: {
-        type: 'text',
-        provider: {type: 'microsoft', voice_id: 'Jenny'},
-        ssml: 'false',
-        input: 'test'
-      },
-      config: {fluent: 'false', pad_audio: '0.0'},
-      source_url: 'https://chat-gpt-web.herokuapp.com/eliza.png'
-    })
-      .then(({ data }) => console.log(data))
-      .catch(err => console.error(err));
-    
-    
-    // const talkResponse = await fetch(`${DID_API.url}/talks/streams/${streamId}`,
-    //   {
-    //     method: 'POST',
-    //     headers: { Authorization: `Basic ${DID_API.key}`, 'Content-Type': 'application/json' },
-    //     body: 
-    //       JSON.stringify({
-    //       script: {
-    //         type: 'text',
-    //         provider: {type: 'microsoft', voice_id: 'Jenny'},
-    //         ssml: 'false',
-    //         input: 'test'
-    //       },
-    //       config: {fluent: 'false', pad_audio: '0.0'},
-    //       source_url: 'https://chat-gpt-web.herokuapp.com/eliza.png',
-    //       session_id: sessionId
-    //     })
-    //   });
-
-
-
+    const talkResponse = await fetch(`${DID_API.url}/talks/streams/${streamId}`,
+      {
+        method: 'POST',
+        headers: { Authorization: `Basic ${DID_API.key}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          'script': {
+            'type': 'audio',
+            'audio_url': 'https://d-id-public-bucket.s3.us-west-2.amazonaws.com/webrtc.mp3',
+          },
+          'driver_url': 'bank://lively/',
+          'config': {
+            'stitch': true,
+          },
+          'session_id': sessionId
+        })
+      });
   }};
-
-
-
-    
-
-
-
-
 
 const destroyButton = document.getElementById('destroy-button');
 destroyButton.onclick = async () => {
