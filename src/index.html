@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,6 +15,8 @@
         <meta name="theme-color" content="hsl(215, 20%, 9%)" media="(prefers-color-scheme: dark)">
     </head>
     <body>
+
+        <!-- SVGs -->
         <svg style="display:none;">
             <symbol id="settings-icon" viewBox="0 0 110 110">
                 <path fill-rule="evenodd" fill="none" stroke="var(--settings-icon-border)" stroke-width="5.0" d="M 61.959 5.487 L 65.474 18.472 L 70.456 20.285 L 81.496 12.598 L 92.157 21.543 L 86.503 33.751 L 89.154 38.342 L 102.553 39.549 L 104.97 53.255 L 92.792 58.972 L 91.871 64.193 L 101.359 73.73 L 94.401 85.783 L 81.397 82.335 L 77.336 85.743 L 78.474 99.147 L 65.396 103.907 L 57.651 92.907 L 52.349 92.907 L 44.604 103.907 L 31.526 99.147 L 32.664 85.743 L 28.603 82.335 L 15.599 85.783 L 8.641 73.73 L 18.129 64.193 L 17.208 58.972 L 5.03 53.255 L 7.447 39.549 L 20.846 38.342 L 23.497 33.751 L 17.843 21.543 L 28.504 12.598 L 39.544 20.285 L 44.526 18.472 L 48.041 5.487 Z" />
@@ -28,7 +31,6 @@
 
 
         <!-- INTRO -->
-
         <div id="intro-view" class="full-window-overlay hidden">
             <div class="assistant-icon-container">
                 <img src="/icon.png" class="assistant-icon">
@@ -94,8 +96,7 @@
 
 
 
-        <!-- GPT SETTINGS -->
-
+        <!-- SETTINGS -->
         <div id="settings-view" class="full-window-overlay hidden">
             <button id="settings-exit-button" class="reset-button">
                 <svg style="width:25px; height:25px">
@@ -151,24 +152,35 @@
             </footer>
         </div>
 
+
+        <!-- MAIN: GPT CHATBOX -->
         <div class="container">
+
+            <div><img src="/eliza.png" width=400 height=400 aligned="centre"></div>
+
             <button id="settings-button" class="reset-button">
                 <svg style="width:25px; height:25px">
                     <use xlink:href="#settings-icon"></use>
                 </svg>
             </button>
+
             <select id="model-select">
                 <option value="gpt-3.5-turbo">GPT-3.5</option>
                 <option value="gpt-4">GPT-4</option>
             </select>
+
             <div id="notification" class="notification"></div>
             <div id="output"></div>
+
         </div>
+
+        <!-- MAIN: GPT CHATBOX -->
         <form id="compose-box">
             <div class="textarea-border-radius" id="prompt-container">
                 <textarea id="prompt" placeholder="Message" autofocus rows="1"></textarea>
             </div>
             <button type="submit" id="submit">Send</button>
         </form>
+
     </body>
 </html>
