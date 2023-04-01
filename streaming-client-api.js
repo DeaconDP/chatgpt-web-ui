@@ -59,28 +59,51 @@ connectButton.onclick = async () => {
     });
 };
 
-// talk button
+// get talk button
 const talkButton = document.getElementById('talk-button');
+// onclick
 talkButton.onclick = async () => {
   // connectionState not supported in firefox
   if (peerConnection?.signalingState === 'stable' || peerConnection?.iceConnectionState === 'connected') {
-    const talkResponse = await fetch(`${DID_API.url}/talks/streams/${streamId}`,
-      {
-        method: 'POST',
-        headers: { Authorization: `Basic ${DID_API.key}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          script: {
-            type: 'text',
-            provider: {type: 'microsoft', voice_id: 'Jenny'},
-            ssml: 'false',
-            input: 'test'
-          },
-          config: {fluent: 'false', pad_audio: '0.0'},
-          source_url: 'https://chat-gpt-web.herokuapp.com/eliza.png',
-          session_id: sessionId
-        })
+    
 
-      });
+    const sdk = require('api')('@d-id/v4.2.0#7xvueytb1glfl1ij2g');
+
+    sdk.auth('Basic WkVCMFpXRnRaWEJwWXk1dmNtYzpYSkJWZE5iRnEwbjFmWmlmTHNrU2o=');
+    sdk.create({
+      script: {
+        type: 'text',
+        provider: {type: 'microsoft', voice_id: 'Jenny'},
+        ssml: 'false',
+        input: 'test'
+      },
+      config: {fluent: 'false', pad_audio: '0.0'},
+      source_url: 'https://chat-gpt-web.herokuapp.com/eliza.png'
+    })
+      .then(({ data }) => console.log(data))
+      .catch(err => console.error(err));
+    
+    
+    // const talkResponse = await fetch(`${DID_API.url}/talks/streams/${streamId}`,
+    //   {
+    //     method: 'POST',
+    //     headers: { Authorization: `Basic ${DID_API.key}`, 'Content-Type': 'application/json' },
+    //     body: 
+    //       JSON.stringify({
+    //       script: {
+    //         type: 'text',
+    //         provider: {type: 'microsoft', voice_id: 'Jenny'},
+    //         ssml: 'false',
+    //         input: 'test'
+    //       },
+    //       config: {fluent: 'false', pad_audio: '0.0'},
+    //       source_url: 'https://chat-gpt-web.herokuapp.com/eliza.png',
+    //       session_id: sessionId
+    //     })
+    //   });
+
+
+
   }};
 
 
