@@ -67,7 +67,7 @@ talkButton.onclick = async () => {
   if (peerConnection?.signalingState === 'stable' || peerConnection?.iceConnectionState === 'connected') {
     
 
-    const sdk = require('api')('@d-id/v4.2.0#7xvueytb1glfl1ij2g');
+    const talkResponse = require('api')('@d-id/v4.2.0#7xvueytb1glfl1ij2g');
 
     sdk.auth('Basic WkVCMFpXRnRaWEJwWXk1dmNtYzpYSkJWZE5iRnEwbjFmWmlmTHNrU2o=');
     sdk.create({
